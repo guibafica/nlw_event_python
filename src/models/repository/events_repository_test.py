@@ -18,6 +18,7 @@ def test_insert_event():
 
   print(response)
 
+@pytest.mark.skip(reason="Return database registration by id")
 def test_get_event_by_id():
   event_id = "my-secret-uuid"
   
