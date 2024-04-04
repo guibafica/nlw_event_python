@@ -1,4 +1,5 @@
 import pytest
+
 from src.models.settings.connection import db_connection_handle
 from .events_repository import EventsRepository
 
