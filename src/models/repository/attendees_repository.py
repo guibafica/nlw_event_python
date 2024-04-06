@@ -3,9 +3,12 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm.exc import NoResultFound
 
 from src.models.settings.connection import db_connection_handle
+
 from src.models.entities.attendees import Attendees
 from src.models.entities.events import Events
 from src.models.entities.check_ins import CheckIns
+
+from src.errors.error_types.http_conflict import HttpConflictError
 
 class AttendeesRepository:
   def insert_attendee(self, attendeeInfo: Dict) -> Dict:
@@ -25,7 +28,7 @@ class AttendeesRepository:
       
         return attendeeInfo
       except IntegrityError:
-        raise Exception('Attendee already registered!')
+        raise HttpConflictError('Attendee already registered!')
       
       except Exception as exception:
         database.session.rollback()

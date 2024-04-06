@@ -6,6 +6,8 @@ from src.models.settings.connection import db_connection_handle
 from src.models.entities.events import Events
 from src.models.entities.attendees import Attendees
 
+from src.errors.error_types.http_conflict import HttpConflictError
+
 class EventsRepository:
   def insert_event(self, eventsInfo: Dict) -> Dict:
     with db_connection_handle as database:
@@ -23,7 +25,7 @@ class EventsRepository:
       
         return eventsInfo
       except IntegrityError:
-        raise Exception('Event already registered!')
+        raise HttpConflictError('Event already registered!')
       
       except Exception as exception:
         database.session.rollback()
