@@ -4,6 +4,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from src.models.settings.connection import db_connection_handle
 from src.models.entities.events import Events
+from src.models.entities.attendees import Attendees
 
 class EventsRepository:
   def insert_event(self, eventsInfo: Dict) -> Dict:
@@ -41,3 +42,29 @@ class EventsRepository:
         return event
       except NoResultFound:
         return None
+      
+  def count_event_attendees(self, event_id: str) -> Dict:
+    with db_connection_handle as database:
+      event_count = (
+        database.session
+          .query(Events)
+          .join(Attendees, Events.id == Attendees.event_id)
+          .filter(Events.id == event_id)
+          .with_entities(
+            Events.maximum_attendees,
+            Attendees.id
+          )
+          .all()
+      )
+
+      if not len(event_count):
+        return {
+          "max_attendees": 0,
+          "attendees_amount": 0,
+        }
+      
+      return {
+        "max_attendees": event_count[0].maximum_attendees,
+        "attendees_amount": len(event_count),
+      }
+      
