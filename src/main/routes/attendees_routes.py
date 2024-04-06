@@ -10,7 +10,6 @@ def create_attendees(event_id):
   attendees_handler = AttendeesHandler()
 
   http_request = HttpRequest(param={ "event_id": event_id }, body=request.json)
-
   http_response = attendees_handler.registry(http_request)
 
   return jsonify(http_response.body), http_response.status_code
