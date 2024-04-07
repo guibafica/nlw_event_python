@@ -7,11 +7,11 @@ db_connection_handle.connect_to_db()
 
 @pytest.mark.skip(reason="New database registration")
 def test_insert_attendee():
-  event_id = "my-secret-uuid"
+  event_id = "e85b93c8-6207-43fd-8598-b169aeaf1af6"
   attendees_info = {
-    "uuid": "my-secret-attendee-uuid",
-    "name": "attendee name",
-    "email": "attendee@email.com",
+    "uuid": "secret-uuid-test",
+    "name": "Name test",
+    "email": "testemail@email.com",
     "event_id": event_id,
   }
   
