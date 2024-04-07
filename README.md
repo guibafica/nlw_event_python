@@ -26,7 +26,7 @@ Good unit testing and error handling practices were also implemented.
 
 ## Database
 
-Create a SQLite database and run the schema located in the 'init' folder
+Create a SQLite database and run the schema located in the 'init' folder.
 
 ## Tests
 
